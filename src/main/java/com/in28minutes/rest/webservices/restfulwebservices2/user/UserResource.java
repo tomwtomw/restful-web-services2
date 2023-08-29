@@ -20,12 +20,17 @@ public class UserResource {
 
     @GetMapping("/users/{userid}")
     public User retrieveUserById(@PathVariable Integer userid) {
-        return userDaoService.findOne(userid);
+        User user = userDaoService.findOne(userid);
+        if (user != null) {
+            return user;
+        } else {
+            throw new UserNotFoundException("User " + userid + " not found");
+        }
     }
 
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        User savedUser= userDaoService.save(user);
+        User savedUser = userDaoService.save(user);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
