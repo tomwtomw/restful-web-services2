@@ -12,4 +12,9 @@ public class HelloWorldController {
     public String helloWorld(){
         return "Hello World "+ LocalDateTime.now();
     }
+
+    @GetMapping(path="/hello-world-bean")
+    public HelloWorldBean helloWorldBean(){
+        return new HelloWorldBean("Hello World "+LocalDateTime.now());
+    }
 }
