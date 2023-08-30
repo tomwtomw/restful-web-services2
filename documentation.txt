@@ -6,3 +6,8 @@ swagger dpocumentations:
 http://localhost:8089/v3/api-docs
 
 http://localhost:8089/swagger-ui/index.html#/
+
+ create database restfulwebservices2;
+   CREATE USER 'restfulwebservices2'@'localhost' IDENTIFIED BY 'restfulwebservices2';
+   GRANT ALL PRIVILEGES ON restfulwebservices2.* TO 'restfulwebservices2'@'localhost';
+   FLUSH PRIVILEGES;
