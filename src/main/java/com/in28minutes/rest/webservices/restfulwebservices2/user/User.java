@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity(name="user_details")
+@Entity(name = "user_details")
 public class User {
     @Id
     @GeneratedValue
