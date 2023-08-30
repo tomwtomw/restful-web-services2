@@ -1,5 +1,6 @@
 package com.in28minutes.rest.webservices.restfulwebservices2.user;
 
+import com.in28minutes.rest.webservices.restfulwebservices2.jpa.PostRepository;
 import com.in28minutes.rest.webservices.restfulwebservices2.jpa.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class UserJpaResource {
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private PostRepository postRepository;
 
     @GetMapping("/jpa/users")
     public List<User> retrieveAllusers() {
@@ -62,6 +65,24 @@ public class UserJpaResource {
         Optional<User> user = repository.findById(userid);
         if (user.isPresent()) {
             return user.get().getPosts();
+        } else {
+            throw new UserNotFoundException("User " + userid + " not found");
+        }
+    }
+
+    @PostMapping("/jpa/users/{userid}/posts")
+    public ResponseEntity<Post> createPostForUser(@PathVariable Integer userid,
+                                                  @Valid @RequestBody Post post) {
+        Optional<User> user = repository.findById(userid);
+        if (user.isPresent()) {
+            post.setUser(user.get());
+            Post savedPost = postRepository.save(post);
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(savedPost.getId())
+                    .toUri();
+            return ResponseEntity.created(location).build();
         } else {
             throw new UserNotFoundException("User " + userid + " not found");
         }
