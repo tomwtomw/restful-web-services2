@@ -29,7 +29,7 @@ public class UserJpaResource {
     @GetMapping("/jpa/users/{userid}")
     public EntityModel<User> retrieveUserById(@PathVariable Integer userid) {
         Optional<User> user = repository.findById(userid);
-        if (!user.isEmpty()) {
+        if (user.isPresent()) {
             EntityModel<User> entityModel = EntityModel.of(user.get());
             WebMvcLinkBuilder link = linkTo(
                     WebMvcLinkBuilder.methodOn(this.getClass()).retrieveAllusers()
