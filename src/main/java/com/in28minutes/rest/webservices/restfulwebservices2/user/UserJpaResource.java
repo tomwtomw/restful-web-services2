@@ -17,8 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 public class UserJpaResource {
-    @Autowired
-    private UserDaoService userDaoService;
+
     @Autowired
     private UserRepository repository;
 
