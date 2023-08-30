@@ -1,2 +1,8 @@
 Hello wporld url:
 http://localhost:8089/hello-world
+
+
+swagger dpocumentations:
+http://localhost:8089/v3/api-docs
+
+http://localhost:8089/swagger-ui/index.html#/
